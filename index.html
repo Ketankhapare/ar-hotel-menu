@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>AR Hotel Menu</title>
+
+  <!-- A-Frame -->
+  <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+
+  <!-- AR.js -->
+  <script src="https://cdn.jsdelivr.net/gh/ARjs-org/AR.js/aframe/build/aframe-ar.min.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+    }
+
+    .menu-card {
+      position: fixed;
+      bottom: 10px;
+      left: 10px;
+      background: rgba(255, 255, 255, 0.92);
+      padding: 12px;
+      border-radius: 10px;
+      width: 260px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+    }
+
+    .menu-card h3 {
+      margin: 0;
+      font-size: 18px;
+    }
+
+    .menu-card p {
+      margin: 5px 0;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- Menu Overlay -->
+<div class="menu-card">
+  <h3>Paneer Butter Masala</h3>
+  <p><b>₹280</b></p>
+  <p>Rich creamy gravy with soft paneer cubes</p>
+</div>
+
+<!-- AR Scene -->
+<a-scene
+  embedded
+  arjs="sourceType: webcam; debugUIEnabled: false;"
+  renderer="antialias: true; alpha: true">
+
+  <!-- Marker -->
+  <a-marker type="pattern" url="markers/menu-marker.patt">
+
+    <!-- Dish 3D Model -->
+    <!-- <a-gltf-model
+      src="assets/dish.glb"
+      scale="0.5 0.5 0.5"
+      position="0 0 0"
+      rotation="0 180 0">
+    </a-gltf-model> -->
+    <a-box color="#ffcc99" depth="0.1" height="0.3" width="0.3"></a-box>
+
+  </a-marker>
+
+  <!-- Camera -->
+  <a-entity camera></a-entity>
+
+  <!-- Lighting -->
+  <a-entity light="type: ambient; intensity: 0.8"></a-entity>
+  <a-entity light="type: directional; intensity: 1" position="1 2 1"></a-entity>
+
+</a-scene>
+
+</body>
+</html>
