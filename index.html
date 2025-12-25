@@ -1,17 +1,83 @@
 <!DOCTYPE html>
 <html>
-<body>
-<h2>Camera Test</h2>
-<video autoplay playsinline></video>
+<head>
+  <meta charset="utf-8" />
+  <title>AR Hotel Menu</title>
 
-<script>
-navigator.mediaDevices.getUserMedia({ video: true })
-  .then(stream => {
-    document.querySelector('video').srcObject = stream;
-  })
-  .catch(err => {
-    document.body.innerHTML += '<p>Error: ' + err + '</p>';
-  });
-</script>
+  <!-- A-Frame -->
+  <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+
+  <!-- MindAR -->
+  <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+    }
+
+    .menu-card {
+      position: fixed;
+      bottom: 10px;
+      left: 10px;
+      background: rgba(255,255,255,0.95);
+      padding: 12px;
+      border-radius: 10px;
+      width: 260px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      z-index: 10;
+    }
+
+    .menu-card h3 {
+      margin: 0;
+      font-size: 18px;
+    }
+
+    .menu-card p {
+      margin: 5px 0;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- Menu Overlay -->
+<div class="menu-card">
+  <h3>Paneer Butter Masala</h3>
+  <p><b>₹280</b></p>
+  <p>Creamy tomato gravy with paneer cubes</p>
+</div>
+
+<a-scene
+  mindar-image="imageTargetSrc: targets/menu.mind; autoStart: true;"
+  color-space="sRGB"
+  renderer="antialias: true; alpha: true"
+  vr-mode-ui="enabled: false"
+  device-orientation-permission-ui="enabled: false">
+
+  <!-- Camera -->
+  <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+
+  <!-- Target Anchor -->
+  <a-entity mindar-image-target="targetIndex: 0">
+
+    <!-- Dish Model -->
+    <a-gltf-model
+      src="assets/fooddish.glb"
+      scale="0.5 0.5 0.5"
+      position="0 0 0"
+      rotation="0 180 0">
+    </a-gltf-model>
+
+  </a-entity>
+
+  <!-- Lighting -->
+  <a-entity light="type: ambient; intensity: 1"></a-entity>
+  <a-entity light="type: directional; intensity: 1" position="1 2 1"></a-entity>
+
+</a-scene>
+
 </body>
 </html>
