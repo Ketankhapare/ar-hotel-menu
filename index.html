@@ -1,18 +1,17 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/gh/ARjs-org/AR.js/aframe/build/aframe-ar.min.js"></script>
-</head>
+<body>
+<h2>Camera Test</h2>
+<video autoplay playsinline></video>
 
-<body style="margin:0; overflow:hidden;">
-  <a-scene
-  embedded
-  vr-mode-ui="enabled: false"
-  renderer="logarithmicDepthBuffer: true;"
-  arjs="sourceType: webcam; videoTexture: true; debugUIEnabled: false;">
-  </a-scene>
-  <a-entity camera></a-entity>
+<script>
+navigator.mediaDevices.getUserMedia({ video: true })
+  .then(stream => {
+    document.querySelector('video').srcObject = stream;
+  })
+  .catch(err => {
+    document.body.innerHTML += '<p>Error: ' + err + '</p>';
+  });
+</script>
 </body>
 </html>
-
