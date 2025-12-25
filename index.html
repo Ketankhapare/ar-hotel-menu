@@ -9,7 +9,8 @@
 
   <!-- MindAR -->
   <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
-
+  <script src="https://cdn.jsdelivr.net/npm/aframe-gesture-detector@4.0.2/dist/aframe-gesture-detector.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/aframe-gesture-handler@4.0.2/dist/aframe-gesture-handler.min.js"></script>
   <style>
     body {
       margin: 0;
@@ -52,6 +53,7 @@
 
 <a-scene
   mindar-image="imageTargetSrc: targets/menu.mind; autoStart: true;"
+  gesture-detector
   color-space="sRGB"
   renderer="antialias: true; alpha: true"
   vr-mode-ui="enabled: false"
@@ -68,7 +70,8 @@
       src="assets/fooddish.glb"
       scale="0.5 0.5 0.5"
       position="0 0 0"
-      rotation="0 180 0">
+      rotation="0 180 0"
+      gesture-handler="rotationFactor: 5">
     </a-gltf-model>
 
   </a-entity>
@@ -78,6 +81,17 @@
   <a-entity light="type: directional; intensity: 1" position="1 2 1"></a-entity>
 
 </a-scene>
+<script>
+  const sceneEl = document.querySelector('a-scene');
+  let locked = false;
 
+  sceneEl.addEventListener('targetFound', () => {
+    if (!locked) {
+      locked = true;
+      sceneEl.components['mindar-image'].stop();
+    }
+  });
+</script>
 </body>
 </html>
+
